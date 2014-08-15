@@ -1,0 +1,121 @@
+<ion-content animation="slide-left-right-ios7" side-menu-content drag-content="false" ng-controller="cardsCtrl" scroll="false">
+    <div class="fix-height">
+        <a ng-repeat="item in allItems" ng-if="$index == currentIndex" on-swipe-down="clickNo()" on-swipe-up="clickYes()" on-release="release()" on-drag-up="dragUp()" on-drag-down="dragDown()">
+            <div class="outer-frame">
+                <div class="list card" id="cardId">
+
+                    <div class="item item-avatar">
+                        <img src="{{item.image[0]}}">
+                        <h2>{{item.name}}</h2>
+                        <p>{{item.price}} on Craiglist by {{item.email}}</p>
+                    </div>
+
+                    <div class="item item-image small-size">
+                        <img src="{{item.image[0]}}">
+                    </div>
+
+                    <div class="item row">
+                        <div class="col col-20 remove-padding" ng-click="clickNo()">
+                            <i class="ion-ios7-close-outline no-icon clickTwo"></i>
+                        </div>
+                        <div class="col col-60" ng-click="showDetail()">
+
+                            <div class="circular-icon center-pic" ng-click="showDetail()">
+                                    <i class="ion-ios7-pricetags-outline info-icon clickTwo"></i>
+                            </div>
+
+                        </div>
+                        <div class="col col-20" ng-click="clickYes()">
+                            <i class="ion-ios7-checkmark-outline yes-icon clickTwo"></i>
+                        </div>
+                    </div>
+
+                    <!-- <div id="bottom-menu">
+                        <i class="ion-ios7-close-outline no-icon clickTwo"></i>
+                    </div> -->
+
+
+                    <!-- <div id="bottom-menu">
+                        <div class="row center moves-up fix-position">
+                            <div class="col col-20" ng-click="clickNo()">
+                                <i class="ion-ios7-close-outline no-icon clickTwo"></i>
+                            </div>
+                            <div class="col col-60 center-pic">
+                                <a href="#/item">
+                                    <div class="circular-icon" ng-click="showDetail()">
+                                        <i class="ion-ios7-pricetags-outline info-icon clickTwo"></i>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col col-20" ng-click="clickYes()">
+                                <i class="ion-ios7-checkmark-outline yes-icon clickTwo"></i>
+                            </div>
+                        </div>
+                    </div> -->
+
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- <pane ng-controller="CardsCtrl" class="pane">
+        <header-bar type="bar-transparent" title="'Help out'"></header-bar>
+        <swipe-cards>
+            <swipe-card on-swipe="cardSwiped()" id="start-card">
+                Swipe down for a new card
+            </swipe-card>
+            <swipe-card ng-repeat="card in cards" on-destroy="cardDestroyed($index)" on-swipe="cardSwiped($index)">
+                <div ng-controller="CardCtrl">
+                    <div class="title">
+                        {{card.title}}
+                    </div>
+                    <div class="image">
+                        <img ng-src="{{card.image}}">
+                    </div>
+                    <div class="button-bar">
+                        <button class="button button-clear button-positive" ng-click="reject()">No</button>
+                        <button class="button button-clear button-positive" ng-click="accept()">Yes</button>
+                    </div>
+                </div>
+            </swipe-card>
+        </swipe-cards>
+    </pane> -->
+    <!--     <ion-pane ng-controller="CardsCtrl">
+        <ion-header-bar class="bar-transparent">
+            <h1 class="title">Help Out</h1>
+        </ion-header-bar>
+
+        <swipe-cards on-swipe="onSwipe($event)">
+
+            <swipe-cards>
+                <swipe-card on-swipe="cardSwiped()" id="start-card">
+                    Swipe down for a new card
+                </swipe-card>
+                <swipe-card ng-repeat="card in cards" on-destroy="cardDestroyed($index)" on-swipe="cardSwiped($index)">
+
+                    <div ng-controller="CardCtrl">
+                        <div class="title">
+                            {{card.title}}
+                        </div>
+                        <div class="image">
+                            <img ng-src="{{card.image}}">
+                        </div>
+                        <div class="button-bar">
+                            <button class="button button-clear button-positive" ng-click="goAway()">Answer</button>
+                            <button class="button button-clear button-positive" ng-click="goAway()">Decline</button>
+                        </div>
+                    </div>
+                </swipe-card>
+            </swipe-cards>
+    </ion-pane>
+ -->
+    <!--     <ul ng-controller="FoodController">
+        <h1 go-away class='fx-zoom-up'>This will zoom out when the fade animation is done</h1>
+        <li class='animated fadeInDown' id='foodText' ng-repeat="food in foods">
+            <p>{{ food }}</p>
+        </li>
+        <button ng-click="animate()">Click here</button>
+    </ul> -->
+
+
+</ion-content>

@@ -1,0 +1,75 @@
+<ion-content ng-controller="sellCtrl">
+    <div ng-show="isLoggedIn">
+        <form novalidate class="css-form" ng-submit="addProduct()">
+            <div class="center-text">
+                <h1 class="log-in-text">Sell</h1>
+                <div ng-hide="photoTaken">
+                    <div class="take-picture" ng-click="getPhoto()">
+                        <i class="icon ion-ios7-camera-outline take-pic large-font"> </i>
+                        <p>Click here to take a picture</p>
+                    </div>
+                </div>
+                <div ng-show="photoTaken">
+                    <div class="take-picture" ng-click="getPhoto()">
+                        <img ng-src="{{photo}}" id="myImage" style="max-width: 100%">
+                    </div>
+                </div>
+                <div class="list push-top">
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label green">Title</span>
+                        <input type="text" placeholder="Fixie Bike" ng-model="object.title" name="title" required />
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label green">Price</span>
+                        <input type="text" placeholder="500 (don't put a dollar sign)" ng-model="object.price" name="price" required>
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label green">Object info</span>
+                        <input type="text" name="info" placeholder="Good condition fixie" ng-model="object.info" required>
+                    </label>
+                    <div class="list">
+
+                        <label class="item item-input item-select">
+                            <div class="input-label green category-move">
+                                Category
+                            </div>
+                            <!-- <select id="category-selector">
+                            <option value="" selected>Please Select The Category</option>
+                            <option value="Apartment">Apartment</option>
+                            <option value="Pet">Pet</option>
+                            <option value="Furniture">Furniture</option>
+                            <option value="Electronic">Electronic</option>
+                            <option value="Bike">Bike</option>
+                            <option value="Free">Free</option>
+                        </select> -->
+                            <select class="category-selector" id="objectName" ng-model="object.category" ng-options="allCat.name for allCat in allCat">
+                                <option value="">Please choose a category</option>
+                            </select>
+                        </label>
+
+                    </div>
+                    <input type="submit" class="button button-block button-balanced" value="Sell">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div ng-hide="isLoggedIn">
+        <form novalidate ng-submit="login()">
+            <div class="center-text">
+                <h1 class="log-in-command">Please log in before selling</h1>
+                <div class="list">
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Email</span>
+                        <input type="text" placeholder="Type in your email here" ng-model="userTwo.email" name="email">
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Password</span>
+                        <input type="text" placeholder="Type in password here" ng-model="userTwo.password" name="password">
+                    </label>
+                    <input type="submit" class="button button-block button-balanced" value="Log in">
+                </div>
+                <h5 class="">Not yet a member? Click <a href="#/signup" class="signup">here</a> to sign up for free</h5>
+            </div>
+        </form>
+    </div>
+</ion-content>

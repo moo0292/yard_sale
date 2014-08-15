@@ -1,0 +1,90 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="js/ng-cordova.js"></script>
+    <script src="cordova.js"></script>
+
+    <!-- File picker -->
+
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+
+    <!-- Javascript stuff -->
+    <script src="js/underscore.js"></script>
+    <script src="js/ionic.swipecards.js"></script>
+    <script src="js/jquery-1.11.1.js"></script>
+    <script src="js/hammer.min.js"></script>
+    <script src="js/ngFx.js"></script>
+    <script src="https://rawgithub.com/webux/ux-angularjs-datagrid/master/build/latest/angular-ux-datagrid.js"></script>
+    <script src="js/angular-base64.js"></script>
+    <script src="js/childbrowser.js"></script>
+    <script src="js/filepicker-0.0.1.js"></script>
+
+    <!-- CSS stuff -->
+    <link href="css/animate.css" rel="stylesheet">
+</head>
+
+<body ng-app="yardSale" class="platform-android platform-cordova platform-webview">
+    <ion-side-menus>
+        <!-- Center content -->
+        <ion-side-menu-content ng-controller="homeCtrl">
+            <ion-header-bar class="bar-balanced">
+                <button class="button button-icon" menu-toggle="left"><i class="icon ion-navicon"></i>
+                </button>
+                <h1 class="title">Yard Sale</h1>
+                <a href="#/login" class="button button-icon"><i class="icon ion-ios7-person"></i>
+                </a>
+
+
+            </ion-header-bar>
+
+            <div id="display"></div>
+            <ion-nav-view animation="no-animation">
+            </ion-nav-view>
+        </ion-side-menu-content>
+
+        <!-- Left menu -->
+        <ion-side-menu side="left" ng-controller="homeCtrl">
+            <header class="bar bar-header bar-balanced">
+                <div class="title">Menu</div>
+            </header>
+            <ion-content has-header="true">
+                <div class="menuHeader">
+                    <img src="" class="circular-main float-left" />
+                </div>
+
+                <h3 class="clear-left name"><b>{{fullName}}</b>
+                </h3>
+                <ul class="list">
+                    <div class="">
+                        <a menu-close href="#/" data-click-menulink class="item item-icon-left"><i class="icon ion-ios7-home-outline green"></i>Home</a>
+                        <a menu-close href="#/search" data-click-menulink class="item item-icon-left"><i class="icon ion-ios7-search green"></i>Search</a>
+                        <a menu-close href="#/quickshop" data-click-menulink class="item item-icon-left"><i class="icon ion-ios7-cart-outline green"></i>Quick Shop</a>
+                        <a menu-close href="#/sell" data-click-menulink class="item item-icon-left"><i class="icon ion-cash green"></i>Sell</a>
+                        <a menu-close href="#/message" data-click-menulink class="item item-icon-left"><i class="icon ion-ios7-chatbubble-outline green"></i>Message</a>
+                        <a menu-close href="#/setting" data-click-menulink class="item item-icon-left"><i class="icon ion-ios7-gear-outline green"></i>Setting</a> 
+                    </div>
+                </ul>
+
+            </ion-content>
+        </ion-side-menu>
+    </ion-side-menus>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<ion-content delegate-handle="myScroll" overflow-scroll="true">
+    <div class="row">
+        <div class="col col-50 select-div">
+            <select class="fill-width" id="objectName" ng-model="categoryName" ng-options="allCat.name for allCat in allCat" ng-change="changeCategoryTwo(categoryName)">
+                <option value="">Please choose a category</option>
+            </select>
+            <br>
+
+        </div>
+        <div class="col col-50 select-div">
+            <!-- <select class="fill-width" id="objectOrder" ng-model="orderSelect" ng-options="orderSelect.name for orderSelect in orderSelect" ng-change="changeOrder(orderSelect)">
+                <option value="">Please choose sorting order</option>
+            </select>
+            <br> -->
+            <select class="fill-width" id="objectOrder" ng-model="categoryOrder" ng-options="orderSelect.name for orderSelect in orderSelect" ng-change="changeOrder(categoryOrder)">
+                <option value="">Please choose an order</option>
+            </select>
+            <br>
+        </div>
+    </div>
+    <div class="list">
+        <div ng-repeat="item in currentArray" ng-if="$index >= lowerLimit && $index < upperLimit">
+            <div ng-click="setItem(item.name, item.image, item.weblink, item.price, item.detail, item.email, item.date)">
+                <a class="item item-thumbnail-left" href="#/item">
+                    <img src="{{item.image[0]}}">
+                    <h2 class="green">{{item.name}}</h2>
+                    <p>Price : {{item.price}}</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- <div data-ux-datagrid="currentArray" ng-if="$index >= lowerLimit && $index < upperLimit">
+            <script type="template/html" template-name="default" template-item="item">
+                
+            </script>
+        </div> -->
+
+        <!-- <div data-ng-controller="sample" ux-datagrid="items" class="datagrid">
+            <script type="template/html" template-name="default" template-item="item">
+                <div class="row">{{item.id}}</div>
+                <p>Hiiiiiiiii</p>
+            </script>
+        </div> -->
+
+    </div>
+    <div class="row">
+        <div class="col col-50">
+            <button class="button button-block button-balanced" ng-disabled="!canGoBack" ng-click="previousPage()">
+                < Back </button>
+        </div>
+        <div class="col col-50">
+            <button class="button button-block button-balanced" ng-click="nextPage()" ng-disabled="!canGoForeward">
+                Next >
+            </button>
+        </div>
+    </div>
+</ion-content>

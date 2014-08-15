@@ -1,0 +1,451 @@
+/* Empty. Add your own CSS if you like */
+
+.alert {
+    background-color: #66cc33;
+    border-radius: 10px;
+    color: white;
+    margin-top: 10px;
+}
+
+.select-grey {
+    background: transparent;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #66cc33;
+    line-height: 1;
+    border: 0;
+    border-radius: 0;
+    height: 22px;
+    -webkit-applarance: none;
+}
+
+.red-text{
+    color: red;
+}
+
+#grey {
+    color: #666666;
+}
+/*This is for the list page*/
+
+.fill-width {
+    background: transparent;
+    width: 170px;
+    padding: 2px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: #66cc33;
+    line-height: 1;
+    border: 0;
+    border-radius: 0;
+    height: 22px;
+    -webkit-appearance: none;
+}
+.middle {
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    left: 6px;
+}
+.select-div {
+    width: 100%;
+    height: 30px;
+    overflow: hidden;
+    border-top: #66cc33 1px solid;
+    -webkit-border-radius: 4px 4px 4px 4px;
+    -moz-border-radius: 4px 4px 4px 4px;
+    border-radius: 4px 4px 4px 4px;
+    -webkit-box-shadow: inset 0 2px 4px rgba(107, 105, 105, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0px 8px 3px -9px #000000;
+    -webkit-box-shadow: 0px 8px 3px -9px #000000;
+    box-shadow: 0px 8px 3px -9px #000000;
+}
+
+.select-div-two {
+    width: 100%;
+    height: 20px;
+    overflow: hidden;
+    background: url(/img/arrowhead.png) no-repeat right;
+    border-top: #66cc33 1px solid;
+    -webkit-border-radius: 4px 4px 4px 4px;
+    -moz-border-radius: 4px 4px 4px 4px;
+    border-radius: 4px 4px 4px 4px;
+    -webkit-box-shadow: inset 0 2px 4px rgba(107, 105, 105, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0px 8px 3px -9px #000000;
+    -webkit-box-shadow: 0px 8px 3px -9px #000000;
+    box-shadow: 0px 8px 3px -9px #000000;
+}
+
+select > option {
+    background: pink;
+}
+.fill-width {
+    width: 100%;
+    text-align: center;
+}
+/*This is for the log in page*/
+
+.take-picture {
+    border: 2px dotted;
+    border-color: #66cc33;
+    height: 50vw;
+    padding-bottom: 25vw;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    font-size: 5vw;
+    color: #66cc33;
+    overflow: hidden;
+}
+.take-picture {
+    border: 2px dotted;
+    border-color: #66cc33;
+    height: 50vw;
+    padding-bottom: 25vw;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    font-size: 5vw;
+    color: #66cc33;
+}
+.large-font {
+    font-size: 40vw;
+}
+.moves-up {
+    margin-top: -5vw;
+}
+.move-left {} .push-top {
+    padding-top: 5vw;
+}
+.log-in-text {
+    font-size: 20vw;
+    color: #66cc33;
+}
+.log-in-command {
+    font-size: 8vw;
+    color: #66cc33;
+}
+.log-in-demand {
+    text-align: center;
+    color: #66cc33;
+}
+.move-down-username {
+    padding-top: 10px;
+}
+.move-down-login {
+    padding-top: 30vw;
+}
+x .move-down-submit {
+    position: relative;
+    top: 6vw;
+}
+.move-down-signup {
+    padding-top: 5vw;
+}
+.signup:link {
+    color: #66cc33;
+}
+.signup:visited {
+    color: #66cc33;
+}
+.signup:hover {
+    color: #66cc33;
+}
+.signup:active {
+    color: #66cc33;
+}
+/*quickshop page*/
+
+.green-background {
+    background-color: #66cc33;
+}
+.white-text {
+    color: white;
+    font-size: 1vw;
+}
+.product-title {
+    color: white;
+}
+.fix-move-down {
+  position: relative;
+  top: 0.02vw;
+  z-index: 0;
+}
+.outer-frame {
+    width: 80%;
+    height: auto;
+    overflow: hidden;
+    max-height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    top: -3vw;
+    z-index: 1;
+}
+.modalBigImage {
+  width: 100%;
+  height: 100vw;
+  overflow: hidden;
+}
+
+.modalSmallImage {
+  height: 80%;
+}
+
+.small-image {
+    width: 10vw;
+    height: 10vw;
+    overflow: hidden;
+}
+.white-background {
+  background-color: white;
+}
+.white-backgroundTwo {
+  background-color: white;
+  opacity: .8;
+}
+.modalSmallImageDiv{
+  height: 15vw;
+  width: 100%;
+  background-color: white;
+  opacity: 30%;
+}
+.bot-pic {
+  max-height: 20vw;
+}
+.inner-frame {
+    background-color: white;
+    width: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4vw;
+    height: 70%;
+    overflow: hidden;
+}
+.full-size {
+    width: 100%;
+    height: 80%;
+}
+.center {
+    text-align: center;
+}
+/*main page*/
+
+a:hover, a:visited, a:link, a:active {
+    text-decoration: none;
+}
+
+.category-move {
+    position: relative;
+    right: 8.7vw;
+}
+
+.circular-main {
+    width: 120px;
+    height: 120px;
+    border-radius: 140px;
+    -webkit-border-radius: 140px;
+    -moz-border-radius: 140px;
+    margin-bottom: 20px;
+    margin-left: 60px;
+    background-color: #66cc33;
+}
+.circular-icon {
+    width: 14vw;
+    height: 14vw;
+    border-radius: 140px;
+    -webkit-border-radius: 140px;
+    -moz-border-radius: 140px;
+    margin-bottom: 20px;
+    background-color: #66cc33;
+    position: relative;
+    left: 4vw;
+    top: 1.5vw;
+}
+.remove-padding {
+    padding-left: 0px;
+}
+.info-icon {
+    color: white;
+    font-size: 10vw;
+    position: relative;
+    top: 2.4vw;
+    left: 2vw;
+}
+.center-pic {
+    display: block;
+    margin-left: 24%;
+    margin-right: auto;
+}
+.no-icon {
+    font-size: 15vw;
+    color: #66cc33;
+    position: relative;
+    top:0.8vw;
+}
+.yes-icon {
+    font-size: 15vw;
+    color: #66cc33;
+    margin-right: 50px;
+    position: relative;
+    right: 0vw;
+    top:0.8vw;
+}
+.circular {
+    width: 20vw;
+    height: 20vw;
+    border-radius: 140px;
+    -webkit-border-radius: 140px;
+    -moz-border-radius: 140px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    background-color: #66cc33;
+}
+.menuHeader {
+    padding-top: 4vw;
+    margin-top: 4em;
+    margin-left: 1em;
+}
+.float-left {
+    float: left;
+}
+.move-down {
+    margin-top: 1em;
+    margin-left: 10px;
+}
+.name {
+    text-align: center;
+    color: #66cc33;
+}
+.center-text {
+    text-align: center;
+}
+.clear-left {
+    clear: left;
+}
+.move-down-two {
+    margin-top: 1em;
+}
+.move-down-four {
+    padding-top: 5vw;
+}
+.move-down-three {
+    padding-top: 2vw;
+}
+.move-down-bike-text {
+    padding-top: 6vw;
+}
+.smaller-user {
+    font-size: 4vw;
+}
+.green {
+    color: #66cc33;
+}
+.move-bot {
+    margin-top: 1vw;
+    padding-top: 1vw;
+}
+.searchIcon {
+    font-size: 10vw;
+}
+.smaller-user {
+    font-size: 0.2vw;
+    color: black;
+}
+.mainCard {
+    background-color: #66cc33;
+    height: 60vw;
+    text-align: center;
+}
+.middleVertical {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.inputText {
+    position: relative;
+    width: 740px;
+    height: 0px;
+    margin: 0 auto;
+    background-color: black;
+}
+.bigIcon, .bigIcon:before {
+    font-size: 360px;
+    font-size: 50vw;
+    color: white;
+}
+
+.bigIconTwo, .bigIconTwo:before {
+    margin-top: 11vw;
+    font-size: 30vw;
+    padding-bottom: 4vw;
+    color: white;
+}
+
+.bigIcon-cars, .bigIcon-cars:before {
+    font-size: 360px;
+    font-size: 40vw;
+    color: white;
+}
+.white-text {
+    color: white;
+    margin-top: 15px;
+    font-size: 5vw;
+}
+@font-face {
+    font-family: 'icomoon';
+    src: url('fonts/icomoon.eot?fhrqxp');
+    src: url('fonts/icomoon.eot?#iefixfhrqxp') format('embedded-opentype'), url('fonts/icomoon.woff?fhrqxp') format('woff'), url('fonts/icomoon.ttf?fhrqxp') format('truetype'), url('fonts/icomoon.svg?fhrqxp#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+[class^="icon-"], [class*=" icon-"] {
+    font-family: 'icomoon';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.icon-uniE600:before {
+    content: "\64";
+}
+.bikeIcon {
+    width: 40vw;
+    height: 40vw;
+    padding-top: 18vw;
+}
+
+/*This is for quick shop page*/
+.fix-position {
+  position: fixed;
+  top: 110vw;
+  z-index: 2;
+}
+
+.small-size{
+  height: 60vw;
+  max-height: 60vw;
+}
+
+/*side scroll for picture*/
+
+.wide-as-needed {
+  overflow: scroll;
+  white-space: nowrap;
+}
+.scroll { 
+  min-width: 100%;
+}

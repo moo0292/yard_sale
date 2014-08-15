@@ -1,0 +1,39 @@
+<ion-content ng-controller="signupCtrl">
+    <form novalidate ng-submit="signup()">
+        <div class="center-text">
+            <h1 class="log-in-text">Sign up</h1>
+            <div class="list">
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">First Name</span>
+                    <input type="text" placeholder="Kittitat" ng-model="user.firstname" name="firstname">
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Last Name</span>
+                    <input type="text" placeholder="Rodchaidee" ng-model="user.lastname" name="lastname">
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Email</span>
+                    <input type="text" ng-model="user.email" name="email" placeholder="rodch100@mail.chapman.edu">
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Password</span>
+                    <input ng-model="user.password" name="password" type="password" placeholder="********">
+                </label>
+                <!-- <label class="item item-input item-select">
+                    <div class="input-label ">
+                        Current location
+                    </div>
+                    <select>
+                        <div>
+                            <option value="orangeCounty">Orange County</option>
+                            <option value="newYork">New York</option>
+                        </div>
+                    </select>
+                </label> -->
+                <h4 ng-show="error" class="red-text">There is an error, email is already in used</h4>
+                <input type="submit" class="button button-block button-balanced" value="Sign up">
+            </div>
+        </div>
+    </form>
+
+</ion-content>

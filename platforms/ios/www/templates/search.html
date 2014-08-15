@@ -1,0 +1,14 @@
+<ion-content ng-controller="searchCtrl">
+    <div class="list list-inset">
+        <label class="item item-input">
+            <i class="icon ion-search placeholder-icon green"></i>
+            <input type="text" placeholder="Enter your search here" ng-model="searchQ">
+        </label>
+        <div class="alert center" ng-show="isEmpty">
+            <p>Your search result returns empty</p>
+        </div>
+        <button class="button button-block button-balanced" ng-click="testClick(searchQ)">
+            Search
+        </button>
+    </div>
+</ion-content>

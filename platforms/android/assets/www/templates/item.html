@@ -1,0 +1,40 @@
+<ion-content>
+    <div class="center-text" ng-controller="itemCtrl">
+
+        <div class="show-image">
+            <div class="item item-image" ng-click="modal.show()">
+                <img src="{{currentObj.image[0]}}">
+            </div>
+        </div>
+        <div class="list push-top">
+            <label class="item item-input item-stacked-label">
+                <span class="input-label green">Title</span>
+                <p>{{currentObj.title}}</p>
+            </label>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label green">Price</span>
+                <p>{{currentObj.price}}</p>
+            </label>
+            <span class="input-label green middle">Object info</span>
+            <p id="grey">{{currentObj.objectInfo}}</p>
+            <label class="item item-input item-stacked-label">
+                <span class="input-label green">Contact info</span>
+                <p>{{currentObj.contact}} {{currentObj.date}}</p>
+            </label>
+            <div class="alert" ng-hide=(isLoggedIn)>
+                <p>Please Login before emailing the seller</p>
+            </div>
+            <div class="row">
+                <div class="col col-50">
+                    <button class="button button-block button-balanced" ng-click="goB()">
+                        Back</button>
+                </div>
+                <div class="col col-50">
+                    <button class="button button-block button-balanced" ng-disabled="!isLoggedIn" ng-click="showPopup(currentObj.contact, currentObj.title)">
+                        Email the seller
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>

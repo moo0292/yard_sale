@@ -1,0 +1,19 @@
+<div class="modal" scroll="true">
+    <header class="bar bar-header bar-balanced">
+        <h1 class="title">More picture</h1>
+        <div class="button button-clear" ng-click="modal.hide()">
+            <span class="icon ion-close"></span>
+        </div>
+    </header>
+    <content has-header="true" padding="true" ng-controller="modalCtrl">
+        <img class="modalBigImage" src="{{currentPicture}}">
+        <div><h2 class="center green white-backgroundTwo">Click on an image to view</h2></div>
+        <div class="modalSmallImageDiv">
+        	<div class="row">
+        		<div class="small-image" ng-repeat="item in currentObject.image">
+        			<img class="col modalSmallImage" src="{{item}}" ng-mouseover="changeImage(item)">
+        		</div>
+        	</div>
+        </div>
+    </content>
+</div>
