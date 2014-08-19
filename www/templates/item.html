@@ -35,6 +35,8 @@
                     </button>
                 </div>
             </div>
+            <button class="report-abuse" ng-hide="!isLoggedIn" ng-click="reportAbuse(currentObj.title, currentObj.contact)"><b>Report as abuse</b>
+            </button>
         </div>
     </div>
 </ion-content>

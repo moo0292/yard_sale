@@ -18,9 +18,31 @@
     -webkit-applarance: none;
 }
 
+.sale-text {
+    text-align: center;
+    color: #66cc33;
+    font-size: 12vw;
+    margin-top: 2vw !important;
+    padding-bottom: 1vw;
+}
+
 .red-text{
     color: red;
 }
+
+.current-sale-list {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    border-radius: 20px;
+    background-color: #66cc33;
+    margin-top: 20px;
+
+}
+
 
 #grey {
     color: #666666;
@@ -158,14 +180,24 @@ x .move-down-submit {
 .signup:active {
     color: #66cc33;
 }
+
+.push-down {
+    margin-top: 6vw;
+}
 /*quickshop page*/
 
 .green-background {
     background-color: #66cc33;
 }
+
+.move-down-main {
+    position: relative;
+    padding-top: 5vw;
+}
+
 .white-text {
     color: white;
-    font-size: 1vw;
+    font-size: 2vw;
 }
 .product-title {
     color: white;
@@ -289,6 +321,37 @@ a:hover, a:visited, a:link, a:active {
     position: relative;
     top:0.8vw;
 }
+
+.select-x {
+    float: right;
+    position: relative;
+    right: 20px;
+    bottom: 7px;
+    background-color: rgba(0,0,0,0);
+    border-color: rgba(0,0,0,0);
+}
+
+.select-x.activated {
+    color: #94db70;
+}
+
+/* Report abuse button */
+.report-abuse {
+    background-color: rgba(0,0,0,0);
+    border-color: rgba(0,0,0,0);
+    color: rgba(255, 0, 0, 1);
+
+}
+
+.report-abuse.activated {
+    color: black;
+}
+
+/*                     */
+
+h3.white-text {
+    display: inline-block;
+}
 .yes-icon {
     font-size: 15vw;
     color: #66cc33;
@@ -397,6 +460,13 @@ a:hover, a:visited, a:link, a:active {
 }
 .white-text {
     color: white;
+    font-size: 5vw;
+    position: relative;
+    bottom: 7vw;
+}
+
+.white-text-text {
+    color: white;
     margin-top: 15px;
     font-size: 5vw;
 }
@@ -448,4 +518,14 @@ a:hover, a:visited, a:link, a:active {
 }
 .scroll { 
   min-width: 100%;
+}
+.sale-title {
+    color: #66cc33;
+    text-align: center;
+    font-size: 8vw;
+    text-decoration: underline;
+}
+
+.setting-log-out {
+    margin-top: 10vw !important;
 }

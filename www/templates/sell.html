@@ -21,7 +21,7 @@
                     </label>
                     <label class="item item-input item-stacked-label">
                         <span class="input-label green">Price</span>
-                        <input type="text" placeholder="500 (don't put a dollar sign)" ng-model="object.price" name="price" required>
+                        <input type="text" placeholder="Type in number here 0 for free" ng-model="object.price" name="price" required>
                     </label>
                     <label class="item item-input item-stacked-label">
                         <span class="input-label green">Object info</span>
@@ -33,22 +33,13 @@
                             <div class="input-label green category-move">
                                 Category
                             </div>
-                            <!-- <select id="category-selector">
-                            <option value="" selected>Please Select The Category</option>
-                            <option value="Apartment">Apartment</option>
-                            <option value="Pet">Pet</option>
-                            <option value="Furniture">Furniture</option>
-                            <option value="Electronic">Electronic</option>
-                            <option value="Bike">Bike</option>
-                            <option value="Free">Free</option>
-                        </select> -->
                             <select class="category-selector" id="objectName" ng-model="object.category" ng-options="allCat.name for allCat in allCat">
                                 <option value="">Please choose a category</option>
                             </select>
                         </label>
 
                     </div>
-                    <input type="submit" class="button button-block button-balanced" value="Sell">
+                    <input ng-disabled="!(!!object.title && !!object.price  && !!object.info && !!object.category)" type="submit" class="button button-block button-balanced" value="Sell">
                 </div>
             </div>
         </form>
@@ -66,7 +57,7 @@
                         <span class="input-label">Password</span>
                         <input type="text" placeholder="Type in password here" ng-model="userTwo.password" name="password">
                     </label>
-                    <input type="submit" class="button button-block button-balanced" value="Log in">
+                    <input ng-disabled="!(!!userTwo.email && !!userTwo.password)" type="submit" type="submit" class="button button-block button-balanced" value="Log in">
                 </div>
                 <h5 class="">Not yet a member? Click <a href="#/signup" class="signup">here</a> to sign up for free</h5>
             </div>

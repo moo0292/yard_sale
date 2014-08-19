@@ -327,9 +327,9 @@ app.factory('allArray', function() {
 
 // });
 
-app.constant("loadFirstUrl", "http://192.168.1.167:3000/api/twenty_all");
+app.constant("loadFirstUrl", "http://192.168.1.166:3000/api/twenty_all");
 
-app.run(function($ionicPlatform, allArray, loadFirstUrl, $http, baseFactory) {
+app.run(function($ionicPlatform, allArray, loadFirstUrl, $http, baseFactory, userFactory) {
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -341,6 +341,41 @@ app.run(function($ionicPlatform, allArray, loadFirstUrl, $http, baseFactory) {
             StatusBar.styleDefault();
         }
     });
+
+    var token = window.localStorage.getItem("token");
+
+    //if the token is not null then you find it and then do a request to get data
+    //if it is null then nothing happens
+    if (token != null) {
+        $http.get("http://192.168.1.166:3000/no_login/" + token)
+            .success(function(data) {
+                //add to each category
+                // allObject.addItems(data);
+                if (data.isAuthenticated == false) {
+
+                } else {
+                    userFactory.setFirstName(data.firstname);
+                    userFactory.setLastName(data.lastname);
+                    userFactory.setIdNumber(data._id);
+                    userFactory.setSellObject(data.current_sell);
+                    userFactory.setEmail(data.local.email);
+                    userFactory.setIsLoggedIn(true);
+                    //the authentication key is data.authenticationKey
+                    window.localStorage.setItem("token", data.authenticationKey);
+
+                    $http.get('http://192.168.1.166:3000/user_sell/' + data._id)
+                        .success(function(data) {
+                            userFactory.setSellObject(data.current_sell);
+                        }).error(function(err) {
+                            console.log(err);
+                        });
+
+                }
+
+            }).error(function(data) {
+                console.log("not working");
+            });
+    }
 
     //when the app first starts, you get the initial data
     $http.get(loadFirstUrl)
@@ -355,7 +390,7 @@ app.run(function($ionicPlatform, allArray, loadFirstUrl, $http, baseFactory) {
             console.log("not working");
         });
 
-    // $http.get("http://192.168.1.167:3000/get_base")
+    // $http.get("http://192.168.1.166:3000/get_base")
     //     .success(function(data) {
     //         baseFactory.setBase(data.policyBase);
     //         baseFactory.setSignature(data.signature);
@@ -444,6 +479,7 @@ app.controller('homeCtrl', function($http, $scope, $ionicScrollDelegate, allArra
     // $scope.currentArrayS = allObject.getCurrentArray();
 
     //get the limit for each page
+    $scope.isLoggedIn = userFactory.getIsLoggedIn();
     $scope.lowerLimit = allArray.getLowerLimit();
     $scope.upperLimit = allArray.getUpperLimit();
 
@@ -483,17 +519,12 @@ app.controller('homeCtrl', function($http, $scope, $ionicScrollDelegate, allArra
         name: 'Old-New'
     }];
 
-    var nameInterval = setInterval(function() {
-        $scope.testClick()
-    }, 1000);
-    var increment = 0;
-    $scope.testClick = function() {
-        $scope.fullName = userFactory.getFullName();
-    }
+    // var nameInterval = setInterval(function() {
+    //     $scope.testClick()
+    // }, 1000);
+    // var increment = 0;
 
     $scope.error = false;
-    $scope.fullName = "";
-    $scope.testClick();
 
 
     //this changes the category on the main button
@@ -531,7 +562,7 @@ app.controller('homeCtrl', function($http, $scope, $ionicScrollDelegate, allArra
     //this goes to the next page
     $scope.nextPage = function() {
         // if ($scope.upperLimit + 10 >= $scope.currentArrayS.length) {
-        //     $http.get("http://192.168.1.167:3000/api/twenty/" + allObject.getCurrentType() + "/skip/" + $scope.currentArrayS.length)
+        //     $http.get("http://192.168.1.166:3000/api/twenty/" + allObject.getCurrentType() + "/skip/" + $scope.currentArrayS.length)
         //         .success(function(data) {
 
         //             //you concat to the big array
@@ -566,8 +597,8 @@ app.controller('homeCtrl', function($http, $scope, $ionicScrollDelegate, allArra
             // console.log("This is the current upper limit " + $scope.upperLimit);
             // console.log("This is the current array length " + $scope.currentArray.length);
 
-            // console.log("http://192.168.1.167:3000/api/twenty/" + allArray.getCurrentType() + "/skip/" + $scope.currentArray.length);
-            $http.get("http://192.168.1.167:3000/api/twenty/" + allArray.getCurrentType() + "/skip/" + $scope.currentArray.length)
+            // console.log("http://192.168.1.166:3000/api/twenty/" + allArray.getCurrentType() + "/skip/" + $scope.currentArray.length);
+            $http.get("http://192.168.1.166:3000/api/twenty/" + allArray.getCurrentType() + "/skip/" + $scope.currentArray.length)
                 .success(function(data) {
                     //concat to the current array
                     $scope.currentArray = $scope.currentArray.concat(data);
@@ -703,7 +734,7 @@ app.controller('cardsCtrl', function($location, $http, $scope, $ionicScrollDeleg
             $scope.$apply();
         });
 
-        $http.get('http://192.168.1.167:3000/sendmail/rodch100@mail.chapman.edu')
+        $http.get('http://192.168.1.166:3000/sendmail/rodch100@mail.chapman.edu')
             .success(function(data) {
                 console.log(data);
             }).error(function(data) {
@@ -723,7 +754,7 @@ app.controller('cardsCtrl', function($location, $http, $scope, $ionicScrollDeleg
                 $scope.$apply();
             });
 
-            $http.get('http://192.168.1.167:3000/sendmail/rodch100@mail.chapman.edu')
+            $http.get('http://192.168.1.166:3000/sendmail/rodch100@mail.chapman.edu')
                 .success(function(data) {
                     console.log(data);
                     $scope.index = 0;
@@ -773,6 +804,26 @@ app.directive('noScroll', function($document) {
 app.controller('itemCtrl', function($scope, allArray, $ionicViewService, $http, $ionicModal, $location, $ionicPopup, userFactory) {
     $scope.currentObj = allArray.getCurrentItem();
     $scope.isLoggedIn = userFactory.getIsLoggedIn();
+    $scope.abuseIncrement = 0;
+
+    $scope.reportAbuse = function(title, email) {
+        if ($scope.abuseIncrement == 0) {
+            $scope.abuseIncrement++;
+            alert("Your complaint has been sent");
+
+            $http.get("http://192.168.1.166:3000/sendabuse/email/" + email + "/item/" + title + "/reporter/" + userFactory.getEmail())
+                .success(function(data) {
+
+                }).error(function(e) {
+                    alert("There is an error");
+                });
+
+
+        } else {
+            alert("You already sent a report for this object");
+        }
+
+    }
 
     //create a popup menu when clicked
 
@@ -793,7 +844,7 @@ app.controller('itemCtrl', function($scope, allArray, $ionicViewService, $http, 
                     if (!$scope.data.text) {
                         e.preventDefault();
                     } else {
-                        $http.get('http://192.168.1.167:3000/sendmail/' + email + '/title/' + title + '/body/' + $scope.data.text + '/usermail/' + userFactory.getEmail())
+                        $http.get('http://192.168.1.166:3000/sendmail/' + email + '/title/' + title + '/body/' + $scope.data.text + '/usermail/' + userFactory.getEmail())
                             .success(function(data) {
                                 $location.path('/');
                             }).error(function(data) {
@@ -806,13 +857,13 @@ app.controller('itemCtrl', function($scope, allArray, $ionicViewService, $http, 
     }
     $scope.sendEmail = function(email, title) {
         // console.log("his is working");
-        $http.get('http://192.168.1.167:3000/sendmail/' + email + '/title/' + title)
+        $http.get('http://192.168.1.166:3000/sendmail/' + email + '/title/' + title)
             .success(function(data) {
                 $location.path('/');
             }).error(function(data) {
                 console.log(data);
             });
-        // $http.get('http://192.168.1.167:3000/sendmail/rodch100@mail.chapman.edu')
+        // $http.get('http://192.168.1.166:3000/sendmail/rodch100@mail.chapman.edu')
         //     .success(function(data) {
         //         // var item = $scope.allItems[$scope.currentIndex];
         //         // var cElem = document.getElementById('cardId);
@@ -849,6 +900,17 @@ app.controller('itemCtrl', function($scope, allArray, $ionicViewService, $http, 
         scope: $scope,
         animation: 'slide-in-up'
     });
+
+    $scope.saveLocal = function() {
+        window.localStorage.setItem("test", "This is a test value");
+        //console.log("Local has beensaved");
+    };
+
+    $scope.getLocal = function() {
+        var value = window.localStorage.getItem("test");
+        console.log(value);
+
+    };
 });
 
 app.controller('modalCtrl', function($scope, allArray) {
@@ -860,60 +922,88 @@ app.controller('modalCtrl', function($scope, allArray) {
     }
 });
 
+app.controller('settingCtrl', function($scope, userFactory, $ionicPopup, $http, $location, allArray) {
+
+    $scope.user = userFactory.getFullName();
+
+    $scope.logOut = function() {
+        window.localStorage.clear();
+        userFactory.setFirstName("");
+        userFactory.setLastName("");
+        userFactory.setIdNumber("");
+        userFactory.setSellObject("");
+        userFactory.setEmail("");
+        userFactory.setIsLoggedIn(false);
+        alert("Succesfully logged off");
+        $location.path("/");
+    }
+
+    $scope.showConfirm = function(input) {
+        var confirmPopup = $ionicPopup.confirm({
+            title: 'Deleting Item',
+            template: 'Are you sure you want to delete this item?',
+            buttons: [{
+                text: 'Cancel',
+                onTap: function(e) {
+                    console.log("cancle");
+                }
+            }, {
+                text: '<b>Delete</b>',
+                type: 'button-balanced',
+                onTap: function(e) {
+                    //alert("The file is being deleted");
+
+
+                    console.log(input);
+                    //this would delete the item with the id
+                    $http.get("http://192.168.1.166:3000/delete_item/" + input + "/person_id/" + userFactory.getIdNumber())
+                        .success(function(data) {
+                            alert("Item deleted successfully, page will redirect when done");
+                            $http.get("http://192.168.1.166:3000/api/twenty_all")
+                                .success(function(data) {
+                                    //add to each category
+
+                                    //this sets the current category
+                                    for (var key in data) {
+                                        allArray.setArrayType(key, data[key]);
+                                    }
+
+                                    //this sets the sell of current sell
+                                    $http.get('http://192.168.1.166:3000/user_sell/' + userFactory.getIdNumber())
+                                        .success(function(dataA) {
+                                            userFactory.setSellObject(dataA.current_sell);
+                                            $location.path('/');
+                                        }).error(function(err) {
+                                            console.log(err);
+                                        });
+
+                                }).error(function(data) {
+                                    console.log("not working");
+                                });
+                        }).error(function(e) {
+                            alert("unable to delete the item");
+                            console.log(e);
+                        })
+
+
+                }
+            }, ]
+        });
+
+    };
+
+    $scope.allSale = userFactory.getSellObject();
+
+    $scope.deleteItem = function(input) {
+        $scope.showConfirm(input);
+    }
+});
+
 app.controller('sellCtrl', function(Camera, $location, $http, $scope, $cordovaCamera, allArray, userFactory, $base64, baseFactory) {
     $scope.isLoggedIn = userFactory.getIsLoggedIn();
     $scope.photoTaken = false;
     $scope.photo = "";
-
-    var s3Uploader = (function() {
-
-        var s3URI = encodeURI("https://yard_sale_product_image.s3.amazonaws.com/"),
-            policyBase64 = baseFactory.getBase(),
-            signature = baseFactory.getSignature(),
-            awsKey = 'AKIAJKWUN4OXEEFKY2JQ',
-            acl = "public-read";
-
-        function upload(imageURI, fileName) {
-
-            var deferred = $.Deferred(),
-                ft = new FileTransfer(),
-                options = new FileUploadOptions();
-
-            options.fileKey = "file";
-            options.fileName = fileName;
-            options.mimeType = "image/jpeg";
-            options.chunkedMode = false;
-            options.headers = {
-                Connection: "close"
-            };
-            options.params = {
-                "key": fileName,
-                "AWSAccessKeyId": awsKey,
-                "acl": acl,
-                "policy": policyBase64,
-                "signature": signature,
-                "Content-Type": "image/jpeg"
-            };
-
-            ft.upload(imageURI, s3URI,
-                function(e) {
-                    alert("done");
-                    deferred.resolve(e);
-                },
-                function(e) {
-                    alert(e);
-                    debugger
-                    console.log(e);
-                    deferred.reject(e);
-                }, options);
-
-            return deferred.promise();
-        };
-        return {
-            upload: upload
-        }
-
-    }());
+    $scope.imageURIS = "";
 
     $scope.getPhoto = function() {
         Camera.getPicture().then(function(imageURI) {
@@ -921,60 +1011,7 @@ app.controller('sellCtrl', function(Camera, $location, $http, $scope, $cordovaCa
             image.src = imageURI;
             // $scope.photo = imageURI;
             $scope.photoTaken = true;
-            // console.log(imageURI);
-
-            //This uploads the image
-            var ft = new FileTransfer();
-
-            var ft = new FileTransfer();
-            var options = new FileUploadOptions();
-
-            options.fileKey = "file";
-            options.fileName = 'filename.jpg'; // We will use the name auto-generated by Node at the server side.
-            options.mimeType = "image/jpeg";
-            options.chunkedMode = false;
-            options.params = { // Whatever you populate options.params with, will be available in req.body at the server-side.
-                "description": "Uploaded from my phone"
-            };
-
-            ft.upload(imageURI, "http://192.168.1.167:3000/upload_image",
-                function(e) {
-                    console.log(e);
-                    alert("Upload finished");
-                },
-                function(e) {
-                    console.log(e);
-                    alert("Upload failed");
-                }, options);
-
-            // $scope.photoBase = imageURI;
-
-            // var fileName = "" + (new Date()).getTime() + ".jpg";
-            // s3Uploader.upload(imageURI, fileName)
-            //     .done(function() {
-            //         alert("S3 upload succeeded");
-            //     })
-            //     .fail(function(e) {
-            //         alert(e);
-            //         alert("S3 upload failed");
-            //     });
-            // filepicker.setKey('ApKzfHYdYR1uxCjZ79hZyz');
-
-            // console.log("I got here three");
-            // filepicker.store(imageURI, {
-            //         filename: 'objectPhoto.jpg'
-            //     },
-            //     function(new_inkblob) {
-            //         alert("This is done");
-            //         console.log("This is done");
-            //         console.log(JSON.stringify(new_inkblob));
-            //     }
-            // );
-
-            // var options = new FileUploadOptions();
-            // options.chunkedMode = false;
-            // var params = {};
-            // var ft = new FileTransfer();
+            $scope.imageURIS = imageURI;
 
         }, function(err) {
             console.err(err);
@@ -987,9 +1024,9 @@ app.controller('sellCtrl', function(Camera, $location, $http, $scope, $cordovaCa
     };
 
     $scope.login = function() {
-        $http.post("http://192.168.1.167:3000/authentication/login", $scope.userTwo)
+        $http.post("http://192.168.1.166:3000/authentication/login", $scope.userTwo)
             .success(function(data) {
-                if (data == 'noAuth') {
+                if (data == 'noAutha') {
                     alert("Please authenticate your email");
                 } else {
                     userFactory.setFirstName(data.firstname);
@@ -998,57 +1035,134 @@ app.controller('sellCtrl', function(Camera, $location, $http, $scope, $cordovaCa
                     userFactory.setSellObject(data.current_sell);
                     userFactory.setEmail(data.local.email);
                     userFactory.setIsLoggedIn(true);
-                    $location.path('/');
-                    $scope.fullName = userFactory.getFullName();
+                    //the authentication key is data.authenticationKey
+                    window.localStorage.setItem("token", data.authenticationKey);
+
+                    $http.get('http://192.168.1.166:3000/user_sell/' + data._id)
+                        .success(function(data) {
+                            userFactory.setSellObject(data.current_sell);
+                            $location.path('/');
+                        }).error(function(err) {
+                            console.log(err);
+                        });
+
                 }
 
 
             }).error(function(data) {                                                                                                               
-                scope.error = true;
+                alert("Unable to login");
             });
 
     };
 
+
+
     $scope.addProduct = function() {
-        // $scope.object.email = userFactory.getEmail();
-        // $scope.object.image = $scope.photoBase;
 
-        // if (!$scope.object.title || !$scope.object.price || !$scope.object.info) {
-        //     console.log("Please input all the field");
-        // } else {
-        //     $http.post("http://192.168.1.167:3000/submit", $scope.object)
-        //         .success(function(data) {
-        //             //add to each category
-        //             $http.get("http://192.168.1.167:3000/api/twenty_all")
-        //                 .success(function(dataT) {
-        //                     //add to each category
-        //                     allObject.setItems(dataT);
+        //this will add the product
 
-        //                 }).error(function(data) {
-        //                     console.log("not working");
-        //                 });
+        //this checks if the input is a number
+        var intRegex = /^\d+$/;
 
-        //             console.log(allObject.getItems());
-        //             console.log("success");
+        //if it is an int then start Uploading
+        //this would mean all form are not empty and price is an int
+        if (intRegex.test($scope.object.price)) {
+            alert("Uploading item, Page will redirect when done");
+            if ($scope.imageURIS == "") {
+                $scope.object.email = userFactory.getEmail();
+                $scope.object.image = $scope.photoBase;
+                $scope.object.hasImage = false;
+                $scope.object.userId = userFactory.getIdNumber();
 
-        //         }).error(function(data) {
-        //             console.log("not working");
-        //         });
-        // }
+                $http.post("http://192.168.1.166:3000/submit", $scope.object)
+                    .success(function(dataT) {
+                        //add to each category
+                        $http.get("http://192.168.1.166:3000/api/twenty_all")
+                            .success(function(data) {
+                                //add to each category
+
+                                //this sets the current category
+                                for (var key in data) {
+                                    allArray.setArrayType(key, data[key]);
+                                }
+
+                                //this sets the sell of current sell
+                                $http.get('http://192.168.1.166:3000/user_sell/' + userFactory.getIdNumber())
+                                    .success(function(dataA) {
+                                        userFactory.setSellObject(dataA.current_sell);
+                                        $location.path('/');
+                                    }).error(function(err) {
+                                        console.log(err);
+                                    });
+
+                            }).error(function(data) {
+                                console.log("not working");
+                            });
 
 
-        // filepicker.store($scope.photoBase, {
-        //         filename: 'objectPhoto.jpg'
-        //     },
-        //     function(new_inkblob) {
-        //         alert("This is done");
-        //         console.log("This is done");
-        //         console.log("This is the uploaded image" + JSON.stringify(new_inkblob));
-        //     }, function(er) {
-        //         alert("There is an error");
-        //     }
-        // );
+                    }).error(function(data) {
+                        console.log("not working");
+                    });
 
+            }
+            //if there is an image call this statement
+            else {
+
+                var ft = new FileTransfer();
+
+                var ft = new FileTransfer();
+                var options = new FileUploadOptions();
+
+                options.fileKey = "file";
+                options.fileName = 'filename.jpg'; // We will use the name auto-generated by Node at the server side.
+                options.mimeType = "image/jpeg";
+                options.chunkedMode = false;
+                options.params = { // Whatever you populate options.params with, will be available in req.body at the server-side.
+                    "description": "Uploaded from my phone",
+                    "email": userFactory.getEmail(),
+                    "title": $scope.object.title,
+                    "price": $scope.object.price,
+                    "info": $scope.object.info,
+                    "hasImage": true,
+                    "category": $scope.object.category.name,
+                    "userId": userFactory.getIdNumber()
+                };
+
+                ft.upload($scope.imageURIS, "http://192.168.1.166:3000/submit",
+                    function(e) {
+                        console.log(e);
+                        alert("Upload finished");
+                        $http.get("http://192.168.1.166:3000/api/twenty_all")
+                            .success(function(data) {
+                                //add to each category
+                                for (var key in data) {
+                                    allArray.setArrayType(key, data[key]);
+                                }
+
+                                //this sets the sell of current sell
+                                $http.get('http://192.168.1.166:3000/user_sell/' + userFactory.getIdNumber())
+                                    .success(function(dataA) {
+                                        userFactory.setSellObject(dataA.current_sell);
+                                        $location.path('/');
+                                    }).error(function(err) {
+                                        console.log(err);
+                                    });
+
+                            }).error(function(data) {
+                                console.log("not working");
+                            });
+                    },
+                    function(e) {
+                        console.log(e);
+                        alert("Upload failed");
+                    }, options);
+            }
+        } else {
+            alert("Your price is not a number");
+            // console.log("Your price is not a number");
+        }
+
+        //if there is no image you call this one
     };
 
 
@@ -1057,7 +1171,7 @@ app.controller('sellCtrl', function(Camera, $location, $http, $scope, $cordovaCa
 app.controller('signupCtrl', function($scope, $http, $location) {
     $scope.error = false;
     $scope.signup = function() {
-        $http.post("http://192.168.1.167:3000/authentication/signup", $scope.user)
+        $http.post("http://192.168.1.166:3000/authentication/signup", $scope.user)
             .success(function(data) {
                 $location.path('/');
                 //have to change the name and stuff
@@ -1068,13 +1182,19 @@ app.controller('signupCtrl', function($scope, $http, $location) {
     }
 });
 
+app.controller('sideCtrl', function($scope, userFactory) {
+    $scope.fullName = userFactory.getFullName();
+    $scope.isLoggedIn = userFactory.getIsLoggedIn();
+
+});
+
 app.controller('loginCtrl', function($scope, $http, $location, userFactory) {
 
     //this will show the login page or setting page
     $scope.isLoggedIn = userFactory.getIsLoggedIn();
 
     $scope.login = function() {
-        $http.post("http://192.168.1.167:3000/authentication/login", $scope.userTwo)
+        $http.post("http://192.168.1.166:3000/authentication/login", $scope.userTwo)
             .success(function(data) {
                 userFactory.setFirstName(data.firstname);
                 userFactory.setLastName(data.lastname);
@@ -1082,13 +1202,22 @@ app.controller('loginCtrl', function($scope, $http, $location, userFactory) {
                 userFactory.setSellObject(data.current_sell);
                 userFactory.setEmail(data.local.email);
                 userFactory.setIsLoggedIn(true);
-                $location.path('/');
-                $scope.fullName = userFactory.getFullName();
+                window.localStorage.setItem("token", data.authenticationKey);
+
+                //this is necessary because we can get the item array instead of array of id
+                $http.get('http://192.168.1.166:3000/user_sell/' + data._id)
+                    .success(function(data) {
+                        userFactory.setSellObject(data.current_sell);
+                        $location.path('/');
+                    }).error(function(err) {
+                        console.log(err);
+                    });
 
 
-            }).error(function(data) {
-                console.log(                                                                                                                   data);
-                $scope.error = true;
+
+            }).error(function(error) {
+                // console.log("Unable to log");
+                alert("Unable to login");
             });
     }
 });
@@ -1100,7 +1229,7 @@ app.controller('searchCtrl', function($http, $scope, allArray, $location) {
     //query the search
     $scope.testClick = function(input) {
         var iLowerCase = input.toLowerCase();
-        $http.get("http://192.168.1.167:3000/api/search/" + iLowerCase)
+        $http.get("http://192.168.1.166:3000/api/search/" + iLowerCase)
             .success(function(data) {
                 if (data.length == 0) {
                     $scope.isEmpty = true;

@@ -67,6 +67,7 @@
 /Users/kittitatrodchaidee/Desktop/fullstackProject/yardSale/platforms/android/assets/www/css/style.css \
 /Users/kittitatrodchaidee/Desktop/fullstackProject/yardSale/platforms/android/assets/www/img/arrowhead.png \
 /Users/kittitatrodchaidee/Desktop/fullstackProject/yardSale/platforms/android/assets/www/img/bike.svg \
+/Users/kittitatrodchaidee/Desktop/fullstackProject/yardSale/platforms/android/assets/www/img/bump_fare_logo.png \
 /Users/kittitatrodchaidee/Desktop/fullstackProject/yardSale/platforms/android/assets/www/img/ionic.png \
 /Users/kittitatrodchaidee/Desktop/fullstackProject/yardSale/platforms/android/assets/www/js/angular-base64.js \
 /Users/kittitatrodchaidee/Desktop/fullstackProject/yardSale/platforms/android/assets/www/js/app.js \
