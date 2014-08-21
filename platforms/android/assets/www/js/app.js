@@ -13,7 +13,7 @@ app.factory('Camera', ['$q', '$base64',
                 }, function(err) {
                     q.reject(err);
                 }, {
-                    quality: 50,
+                    quality: 80,
                     targetWidth: 320,
                     targetHeight: 320,
                     saveToPhotoAlbum: false,
@@ -38,6 +38,8 @@ app.factory('userFactory', [
         var sellObject = [];
         var email = "";
         var idNumber = "";
+        var currentLocation = "";
+
         return {
             getIsLoggedIn: function() {
                 return isLoggedIn;
@@ -71,6 +73,12 @@ app.factory('userFactory', [
             },
             getEmail: function() {
                 return email;
+            },
+            getCurrentLocation: function() {
+                return currentLocation;
+            },
+            setCurrentLocation: function(input) {
+                currentLocation = input;
             }
         };
     }
@@ -109,7 +117,7 @@ app.factory('allArray', function() {
     var electronicArray = [];
     var freeArray = [];
     var furnitureArray = [];
-    var petArray = [];
+    var bookArray = [];
 
     //limit tells how much should be shown in the page
     var upperLimit = 10;
@@ -137,7 +145,7 @@ app.factory('allArray', function() {
     //getter and setter methods
     return {
         getRandomArray: function() {
-            var allArray = apartmentArray.concat(bikeArray, electronicArray, freeArray, furnitureArray, petArray);
+            var allArray = apartmentArray.concat(bikeArray, electronicArray, freeArray, furnitureArray, bookArray);
             return _.shuffle(allArray);
         },
         getCurrentArray: function() {
@@ -157,8 +165,8 @@ app.factory('allArray', function() {
                 return freeArray;
             } else if (input == "Furniture") {
                 return furnitureArray;
-            } else if (input == "Pet") {
-                return petArray;
+            } else if (input == "Book") {
+                return bookArray;
             }
         },
         setArrayType: function(input, data) {
@@ -172,8 +180,8 @@ app.factory('allArray', function() {
                 freeArray = data;
             } else if (input == "Furniture") {
                 furnitureArray = data;
-            } else if (input == "Pet") {
-                petArray = data;
+            } else if (input == "Book") {
+                bookArray = data;
             }
         },
         addArrayType: function(input, data) {
@@ -187,8 +195,8 @@ app.factory('allArray', function() {
                 freeArray = freeArray.concat(data);
             } else if (input == "Furniture") {
                 furnitureArray = furnitureArray.concat(data);
-            } else if (input == "Pet") {
-                petArray = petArray.concat(data);
+            } else if (input == "Book") {
+                bookArray = bookArray.concat(data);
             }
         },
         setLowerLimit: function(input) {
@@ -215,13 +223,14 @@ app.factory('allArray', function() {
         setCanGoForeward: function(input) {
             goForeward = input;
         },
-        setCurrentItem: function(nameI, imageI, linkI, priceI, infoI, contactI) {
+        setCurrentItem: function(nameI, imageI, linkI, priceI, detailI, emailI, locationI) {
             currentItem.title = nameI;
             currentItem.image = imageI;
             currentItem.link = linkI;
             currentItem.price = priceI;
-            currentItem.objectInfo = infoI;
-            currentItem.contact = contactI;
+            currentItem.objectInfo = detailI;
+            currentItem.contact = emailI;
+            currentItem.currentlocation = locationI;
         },
         getCurrentItem: function() {
             return currentItem;
@@ -235,97 +244,6 @@ app.factory('allArray', function() {
     }
 });
 
-// app.factory('allObject', function() {
-//     var allItems = [];
-//     var currentType = null;
-//     var currentArray = [];
-//     var lowerLimit = 0;
-//     var upperLimit = 10;
-//     var currentItem = {
-//         title: "",
-//         image: [],
-//         link: "",
-//         price: "",
-//         objectInfo: "",
-//         contact: ""
-//     };
-//     var currentValue = 0;
-//     var canGoForeward = false;
-//     var canGoBack = true;
-//     //getter and setter
-//     return {
-//         getRandomArray: function() {
-//             return _.shuffle(allItems);
-//         },
-//         getCanGoForeward: function() {
-//             return canGoForeward;
-//         },
-//         getCanGoBack: function() {
-//             return canGoBack;
-//         },
-//         setCanGoBack: function(input) {
-//             canGoBack = input;
-//         },
-//         setCanGoForeward: function(input) {
-//             canGoForeward = input;
-//         },
-//         getCurrentValue: function() {
-//             return currentValue;
-//         },
-//         setCurrentValue: function(input) {
-//             currentValue = input;
-//         },
-//         addItems: function(input) {
-//             allItems = allItems.concat(input);
-//         },
-//         getItems: function() {
-//             return allItems;
-//         },
-//         setItems: function(input) {
-//             allItems = input;
-//         },
-//         setCurrentType: function(input) {
-//             currentType = input;
-//         },
-//         getCurrentType: function() {
-//             return currentType;
-//         },
-//         getCurrentArray: function() {
-//             return currentArray;
-//         },
-//         setCurrentArray: function(input) {
-//             currentArray = input;
-//         },
-//         resetCurrentArray: function() {
-//             currentArray = [];
-//         },
-//         setCurrentItem: function(nameI, imageI, linkI, priceI, infoI, contactI) {
-//             currentItem.title = nameI;
-//             currentItem.image = imageI;
-//             currentItem.link = linkI;
-//             currentItem.price = priceI;
-//             currentItem.objectInfo = infoI;
-//             currentItem.contact = contactI;
-//         },
-//         getCurrentItem: function() {
-//             return currentItem;
-//         },
-//         setLowerLimit: function(input) {
-//             lowerLimit = input;
-//         },
-//         getLowerLimit: function() {
-//             return lowerLimit;
-//         },
-//         setUpperLimit: function(input) {
-//             upperLimit = input;
-//         },
-//         getUpperLimit: function() {
-//             return upperLimit;
-//         }
-
-//     }
-
-// });
 
 app.constant("loadFirstUrl", "http://192.168.1.166:3000/api/twenty_all");
 
@@ -359,6 +277,7 @@ app.run(function($ionicPlatform, allArray, loadFirstUrl, $http, baseFactory, use
                     userFactory.setIdNumber(data._id);
                     userFactory.setSellObject(data.current_sell);
                     userFactory.setEmail(data.local.email);
+                    userFactory.setCurrentLocation(data.currentlocation);
                     userFactory.setIsLoggedIn(true);
                     //the authentication key is data.authenticationKey
                     window.localStorage.setItem("token", data.authenticationKey);
@@ -469,14 +388,7 @@ app.config(function($stateProvider, $urlRouterProvider, $provide, $compileProvid
 
 app.controller('homeCtrl', function($http, $scope, $ionicScrollDelegate, allArray, userFactory, $location) {
 
-    // $scope.lowerLimit = allObject.getLowerLimit();
-    // $scope.upperLimit = allObject.getUpperLimit();
-    //get all objects
-    // $scope.allItems = allObject.getItems();
-    // $scope.canGoBack = allObject.getCanGoBack();
-    // $scope.canGoForeward = allObject.getCanGoForeward();
-    //current category of the array
-    // $scope.currentArrayS = allObject.getCurrentArray();
+
 
     //get the limit for each page
     $scope.isLoggedIn = userFactory.getIsLoggedIn();
@@ -486,7 +398,6 @@ app.controller('homeCtrl', function($http, $scope, $ionicScrollDelegate, allArra
     //this changes everytime the user clicks a new page
     if (allArray.getCurrentType() == "search") {
         $scope.currentArray = allArray.getCurrentArray();
-        console.log("I got here");
     } else {
         $scope.currentArray = allArray.getArrayType(allArray.getCurrentType());
     }
@@ -502,7 +413,7 @@ app.controller('homeCtrl', function($http, $scope, $ionicScrollDelegate, allArra
     $scope.allCat = [{
         name: 'Apartment'
     }, {
-        name: 'Pet'
+        name: 'Book'
     }, {
         name: 'Furniture'
     }, {
@@ -515,8 +426,6 @@ app.controller('homeCtrl', function($http, $scope, $ionicScrollDelegate, allArra
 
     $scope.orderSelect = [{
         name: 'New-Old'
-    }, {
-        name: 'Old-New'
     }];
 
     // var nameInterval = setInterval(function() {
@@ -561,36 +470,7 @@ app.controller('homeCtrl', function($http, $scope, $ionicScrollDelegate, allArra
 
     //this goes to the next page
     $scope.nextPage = function() {
-        // if ($scope.upperLimit + 10 >= $scope.currentArrayS.length) {
-        //     $http.get("http://192.168.1.166:3000/api/twenty/" + allObject.getCurrentType() + "/skip/" + $scope.currentArrayS.length)
-        //         .success(function(data) {
-
-        //             //you concat to the big array
-        //             console.log("Before all objects ", allObject.getItems().length);
-        //             $scope.currentArrayS = $scope.currentArrayS.concat(data);
-        //             allObject.addItems(data);
-        //             console.log("After all objects ", allObject.getItems().length);
-        //             $scope.lowerLimit += 10;
-        //             $scope.upperLimit += 10;
-        //             $ionicScrollDelegate.scrollTop();
-        //             $scope.canGoBack = false;
-        //             allObject.setCanGoBack(false);
-        //             console.log(data.length);
-        //             if (data.length == 0) {
-        //                 console.log("It's working");
-        //                 $scope.canGoForeward = true;
-        //                 allObject.setCanGoForeward(true);
-        //             }
-        //         }).error(function(data) {
-        //             console.log("not working");
-        //         });
-        // } else {
-        //     $scope.lowerLimit += 10;
-        //     $scope.upperLimit += 10;
-        //     $ionicScrollDelegate.scrollTop();
-        //     $scope.canGoBack = false;
-        //     allObject.setCanGoBack(false);
-        // }
+        $location.hash('top');
 
         if ($scope.upperLimit + 10 >= $scope.currentArray.length) {
             // console.log("Have to load more ");
@@ -648,6 +528,7 @@ app.controller('homeCtrl', function($http, $scope, $ionicScrollDelegate, allArra
                 allArray.setCanGoBack(false);
                 $ionicScrollDelegate.scrollTop();
             }
+            $location.hash('top');
         }
         // else {
         //     console.log($scope.lowerLimit);
@@ -660,8 +541,8 @@ app.controller('homeCtrl', function($http, $scope, $ionicScrollDelegate, allArra
     }
 
     //this sets the item
-    $scope.setItem = function(nameIn, imageIn, webIn, priceIn, detailIn, emailIn) {
-        allArray.setCurrentItem(nameIn, imageIn, webIn, priceIn, detailIn, emailIn);
+    $scope.setItem = function(nameIn, imageIn, webIn, priceIn, detailIn, emailIn, locationIn) {
+        allArray.setCurrentItem(nameIn, imageIn, webIn, priceIn, detailIn, emailIn, locationIn);
         allArray.setUpperLimit($scope.upperLimit);
         allArray.setLowerLimit($scope.lowerLimit);
         $ionicScrollDelegate.scrollTop();
@@ -721,7 +602,7 @@ app.controller('cardsCtrl', function($location, $http, $scope, $ionicScrollDeleg
 
     $scope.showDetail = function() {
         var item = $scope.allItems[$scope.currentIndex];
-        $scope.setItem(item.name, item.image, item.weblink, item.price, item.detail, item.email);
+        $scope.setItem(item.name, item.image, item.weblink, item.price, item.detail, item.email, item.currentlocation);
         $location.path('/item');
     };
 
@@ -1016,7 +897,7 @@ app.controller('sellCtrl', function(Camera, $location, $http, $scope, $cordovaCa
         }, function(err) {
             console.err(err);
         }, {
-            quality: 75,
+            quality: 80,
             targetWidth: 320,
             targetHeight: 320,
             saveToPhotoAlbum: false
@@ -1034,6 +915,7 @@ app.controller('sellCtrl', function(Camera, $location, $http, $scope, $cordovaCa
                     userFactory.setIdNumber(data._id);
                     userFactory.setSellObject(data.current_sell);
                     userFactory.setEmail(data.local.email);
+                    userFactory.setCurrentLocation(data.currentlocation);
                     userFactory.setIsLoggedIn(true);
                     //the authentication key is data.authenticationKey
                     window.localStorage.setItem("token", data.authenticationKey);
@@ -1067,12 +949,15 @@ app.controller('sellCtrl', function(Camera, $location, $http, $scope, $cordovaCa
         //if it is an int then start Uploading
         //this would mean all form are not empty and price is an int
         if (intRegex.test($scope.object.price)) {
-            alert("Uploading item, Page will redirect when done");
+            alert("Uploading item");
+            $location.path('/');
             if ($scope.imageURIS == "") {
                 $scope.object.email = userFactory.getEmail();
                 $scope.object.image = $scope.photoBase;
                 $scope.object.hasImage = false;
                 $scope.object.userId = userFactory.getIdNumber();
+                $scope.object.location = userFactory.getCurrentLocation();
+
 
                 $http.post("http://192.168.1.166:3000/submit", $scope.object)
                     .success(function(dataT) {
@@ -1090,7 +975,6 @@ app.controller('sellCtrl', function(Camera, $location, $http, $scope, $cordovaCa
                                 $http.get('http://192.168.1.166:3000/user_sell/' + userFactory.getIdNumber())
                                     .success(function(dataA) {
                                         userFactory.setSellObject(dataA.current_sell);
-                                        $location.path('/');
                                     }).error(function(err) {
                                         console.log(err);
                                     });
@@ -1125,7 +1009,8 @@ app.controller('sellCtrl', function(Camera, $location, $http, $scope, $cordovaCa
                     "info": $scope.object.info,
                     "hasImage": true,
                     "category": $scope.object.category.name,
-                    "userId": userFactory.getIdNumber()
+                    "userId": userFactory.getIdNumber(),
+                    "location": userFactory.getCurrentLocation()
                 };
 
                 ft.upload($scope.imageURIS, "http://192.168.1.166:3000/submit",
@@ -1143,7 +1028,6 @@ app.controller('sellCtrl', function(Camera, $location, $http, $scope, $cordovaCa
                                 $http.get('http://192.168.1.166:3000/user_sell/' + userFactory.getIdNumber())
                                     .success(function(dataA) {
                                         userFactory.setSellObject(dataA.current_sell);
-                                        $location.path('/');
                                     }).error(function(err) {
                                         console.log(err);
                                     });
@@ -1171,14 +1055,18 @@ app.controller('sellCtrl', function(Camera, $location, $http, $scope, $cordovaCa
 app.controller('signupCtrl', function($scope, $http, $location) {
     $scope.error = false;
     $scope.signup = function() {
-        $http.post("http://192.168.1.166:3000/authentication/signup", $scope.user)
-            .success(function(data) {
-                $location.path('/');
-                //have to change the name and stuff
-            }).error(function(data) {
-                console.log(data);
-                $scope.error = true;
-            });
+        if ($scope.user.password == $scope.user.confirmPassword) {
+            $http.post("http://192.168.1.166:3000/authentication/signup", $scope.user)
+                .success(function(data) {
+                    $location.path('/');
+                    //have to change the name and stuff
+                }).error(function(data) {
+                    console.log(data);
+                    $scope.error = true;
+                });
+        } else {
+            alert("Your password does not match");
+        }
     }
 });
 
@@ -1196,22 +1084,28 @@ app.controller('loginCtrl', function($scope, $http, $location, userFactory) {
     $scope.login = function() {
         $http.post("http://192.168.1.166:3000/authentication/login", $scope.userTwo)
             .success(function(data) {
-                userFactory.setFirstName(data.firstname);
-                userFactory.setLastName(data.lastname);
-                userFactory.setIdNumber(data._id);
-                userFactory.setSellObject(data.current_sell);
-                userFactory.setEmail(data.local.email);
-                userFactory.setIsLoggedIn(true);
-                window.localStorage.setItem("token", data.authenticationKey);
+                if (data == 'noAutha') {
+                    alert("Please authenticate your email");
+                } else {
+                    userFactory.setFirstName(data.firstname);
+                    userFactory.setLastName(data.lastname);
+                    userFactory.setIdNumber(data._id);
+                    userFactory.setSellObject(data.current_sell);
+                    userFactory.setEmail(data.local.email);
+                    userFactory.setCurrentLocation(data.currentlocation);
+                    userFactory.setIsLoggedIn(true);
+                    //the authentication key is data.authenticationKey
+                    window.localStorage.setItem("token", data.authenticationKey);
 
-                //this is necessary because we can get the item array instead of array of id
-                $http.get('http://192.168.1.166:3000/user_sell/' + data._id)
-                    .success(function(data) {
-                        userFactory.setSellObject(data.current_sell);
-                        $location.path('/');
-                    }).error(function(err) {
-                        console.log(err);
-                    });
+                    $http.get('http://192.168.1.166:3000/user_sell/' + data._id)
+                        .success(function(data) {
+                            userFactory.setSellObject(data.current_sell);
+                            $location.path('/');
+                        }).error(function(err) {
+                            console.log(err);
+                        });
+
+                }
 
 
 

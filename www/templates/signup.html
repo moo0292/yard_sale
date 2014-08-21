@@ -19,6 +19,14 @@
                     <span class="input-label">Password</span>
                     <input ng-model="user.password" name="password" type="password" placeholder="********">
                 </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Confirm Password</span>
+                    <input ng-model="user.confirmPassword" name="confirmPassword" type="password" placeholder="********">
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Current Location</span>
+                    <input type="text" ng-model="user.currentlocation" name="email" placeholder="Orange CA">
+                </label>
                 <!-- <label class="item item-input item-select">
                     <div class="input-label ">
                         Current location
@@ -31,7 +39,7 @@
                     </select>
                 </label> -->
                 <h4 ng-show="error" class="red-text">There is an error, email is already in used</h4>
-                <input type="submit" ng-disabled="!(!!user.firstname && !!user.lastname && !!user.email &&!!user.password)" class="button button-block button-balanced" value="Sign up">
+                <input type="submit" ng-disabled="!(!!user.firstname && !!user.lastname && !!user.email &&!!user.password &&!!user.currentlocation &&!!user.confirmPassword)" class="button button-block button-balanced" value="Sign up">
             </div>
         </div>
     </form>

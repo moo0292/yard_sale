@@ -10,7 +10,7 @@
                     </label>
                     <label class="item item-input item-stacked-label">
                         <span class="input-label">Password</span>
-                        <input type="text" placeholder="Type in password here" ng-model="userTwo.password" name="password">
+                        <input type="password" placeholder="Type in password here" ng-model="userTwo.password" name="password">
                     </label>
                     <input ng-disabled="!(!!userTwo.email && !!userTwo.password)" type="submit" type="submit" class="button button-block button-balanced" value="Log in">
                 </div>
@@ -21,13 +21,27 @@
     <div ng-show="isLoggedIn" ng-controller="settingCtrl">
         <div ng-controller="settingCtrl">
             <h1 class="sale-title">{{user}}'s Setting</h1>
-            <h1 class="sale-text">Your current Sale</h1>
-            <div ng-repeat="item in allSale">
+            <div class="sale-text-div" ng-click="openSaleAcc()">
+                <h1 class="sale-text">Your current Sale</h1>
+                <button class="icon ion-arrow-down-b white-text select-down" ng-click=""></button>
+            </div>
+            <div ng-show="openSale" ng-repeat="item in allSale">
                 <div class="current-sale-list">
                     <h3 class="white-text-text">{{item.name}}</h3>
                     <button class="icon ion-close-round white-text select-x" ng-click="deleteItem(item._id)"></button>
                 </div>
             </div>
+
+            <div class="sale-text-div move-favorite" ng-click="openFavoriteAcc()">
+                <h1 class="sale-text">Your current Favorite</h1>
+                <button class="icon ion-arrow-down-b white-text select-down" ng-click=""></button>
+            </div>
+            <div ng-show="openFavorite" ng-repeat="itemTwo in allFavorite track by $index">
+                <div class="current-sale-list" ng-click="setItem(itemTwo.name, itemTwo.image, itemTwo.weblink, itemTwo.price, itemTwo.detail, itemTwo.email, itemTwo.location)">
+                    <h3 class="white-text-text">{{itemTwo.name}}</h3>
+                </div>
+            </div>
+
             <button class="button setting-log-out button-block button-balanced" ng-click="logOut()">
                 Log out
             </button>

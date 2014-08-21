@@ -1,5 +1,5 @@
 <ion-content delegate-handle="myScroll" overflow-scroll="true">
-    <div class="row">
+    <div class="row" id="top">
         <div class="col col-50 select-div">
             <select class="fill-width" id="objectName" ng-model="categoryName" ng-options="allCat.name for allCat in allCat" ng-change="changeCategoryTwo(categoryName)">
                 <option value="">Please choose a category</option>
@@ -20,7 +20,7 @@
     </div>
     <div class="list">
         <div ng-repeat="item in currentArray" ng-if="$index >= lowerLimit && $index < upperLimit">
-            <div ng-click="setItem(item.name, item.image, item.weblink, item.price, item.detail, item.email, item.date)">
+            <div ng-click="setItem(item.name, item.image, item.weblink, item.price, item.detail, item.email, item.location)">
                 <a class="item item-thumbnail-left" href="#/item">
                     <img src="{{item.image[0]}}">
                     <h2 class="green">{{item.name}}</h2>
